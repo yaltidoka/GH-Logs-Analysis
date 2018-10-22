@@ -18,9 +18,7 @@
 
 
 * Download the data
-You will need to unzip the newsdata file after downloading it. The file inside is called newsdata.sql. Put this file into the vagrant directory, which is shared with your virtual machine.
-
-To build the reporting tool, you'll need to load the site's data into your local database.
+You will need to unzip the newsdata file after downloading it. The file inside is called newsdata.sql. Put this file into the vagrant directory, which is shared with your virtual machine.  To build the reporting tool, you'll need to load the site's data into your local database.
 
 * Load data onto the database
 ```sql
@@ -83,4 +81,4 @@ ORDER BY total_daily_view.date;
 ```
 ## Authors
 
-* **Yanal Altidoka** 
+* **Yanal Altidoka**

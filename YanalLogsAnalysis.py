@@ -44,7 +44,7 @@ def main():
     print("3. On which days did more than 1% of requests lead to errors?")
     for (date, percentage) in cur.fetchall():
         print("    {} - {:0.2f}% errors".format(date, percentage))
-    print("***********************************************************")
+    print("**********************************************************")
 
     # Close database
     cur.close()
