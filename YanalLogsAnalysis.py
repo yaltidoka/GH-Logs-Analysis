@@ -7,7 +7,7 @@ import psycopg2
 def main():
     # Database connection
     conn = psycopg2.connect("dbname=news")
-    # Open a cursor database functions
+    # Open cursor database functions
     cur = conn.cursor()
     # 1 - select title and # of views for each title
     most_popular_articles = """

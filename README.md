@@ -1,9 +1,9 @@
 # Logs Analysis Project
 
 ## System Requirements
-* Python
-* psycopg2
-* Postgresql
+* Python - Download at https://www.python.org/
+* psycopg2 - Command Line installation code: pip3 install pycodestyle
+* Postgresql - https://www.postgresql.org/
 * Virtual Machine Setup
 
 ## Project Questions
@@ -18,7 +18,7 @@
 
 
 * Download the data
-You will need to unzip the newsdata file after downloading it. The file inside is called newsdata.sql. Put this file into the vagrant directory, which is shared with your virtual machine.  To build the reporting tool, you'll need to load the site's data into your local database.
+You will need to unzip the newsdata file after downloading it.  [Please, click here!](https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip) The file inside is called newsdata.sql. Put this file into the vagrant directory, which is shared with your virtual machine.  To build the reporting tool, you'll need to load the site's data into your local database.
 
 * Load data onto the database
 ```sql
@@ -52,7 +52,7 @@ ORDER BY path;
 CREATE VIEW art_total_views AS
 SELECT author_details.name, author_details.title, log_path_total_views.view
 FROM author_details join log_path_total_views
-ON (substring(log_path_total_views.path, 10) = author_details.slug)
+ON (log_path_total_views.path = CONCAT('/article/', author_details.slug)
 ORDER BY log_path_total_views.view DESC;
 ```
 
@@ -67,7 +67,7 @@ ORDER BY date(time);
 ```sql
 CREATE VIEW error_daily_view AS
 SELECT date(time), COUNT(*) AS errors
-FROM log WHERE status like '4%'
+FROM log WHERE status != '200 OK'
 GROUP BY date(time)
 ORDER BY date(time);
 ```
