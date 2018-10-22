@@ -4,6 +4,7 @@
 * Python
 * psycopg2
 * Postgresql
+* Virtual Machine Setup
 
 ## Project Questions
 1. What are the most popular three articles of all time?
@@ -15,7 +16,11 @@
 3. On which days did more than 1% of requests lead to errors?
   The log table includes a column status that indicates the HTTP status code that the news site sent to the user's browser.
 
-## Directions to run
+
+* Download the data
+You will need to unzip the newsdata file after downloading it. The file inside is called newsdata.sql. Put this file into the vagrant directory, which is shared with your virtual machine.
+
+To build the reporting tool, you'll need to load the site's data into your local database.
 
 * Load data onto the database
 ```sql
@@ -25,7 +30,7 @@ psql -d news -f newsdata.sql
 ```sql
 psql -d news
 ```
-* Create views while connected to the DB
+* Create the views listed below while connected to the DB
 * Run python3 YanalLogsAnalysis.py after existing DB
 
 ### Create Views
@@ -46,7 +51,7 @@ ORDER BY path;
 ```
 
 ```sql
-CREATE VIEW article_total_views AS
+CREATE VIEW art_total_views AS
 SELECT author_details.name, author_details.title, log_path_total_views.view
 FROM author_details join log_path_total_views
 ON (substring(log_path_total_views.path, 10) = author_details.slug)
@@ -76,3 +81,6 @@ FROM total_daily_view join error_daily_view
 ON (total_daily_view.date = error_daily_view.date)
 ORDER BY total_daily_view.date;
 ```
+## Authors
+
+* **Yanal Altidoka** 

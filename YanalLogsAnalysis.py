@@ -1,6 +1,8 @@
-#Log Analysis project
+#!/usr/bin/env python3
+# Log Analysis project
 
 import psycopg2
+
 
 def main():
     # Database connection
@@ -9,9 +11,9 @@ def main():
     cur = conn.cursor()
     # 1 - select title and # of views for each title
     most_popular_articles = """
-      SELECT article_total_views.title, article_total_views.view
-      FROM article_total_views
-      ORDER BY article_total_views.view DESC
+      SELECT art_total_views.title, art_total_views.view
+      FROM art_total_views
+      ORDER BY art_total_views.view DESC
       LIMIT 3;
     """
     cur.execute(most_popular_articles)
@@ -21,9 +23,9 @@ def main():
     print("********************************************************")
     # 2 - select author and sum up all the views for each of their articles
     most_popular_authors = """
-    SELECT article_total_views.name, SUM(article_total_views.view) AS author_view
-    FROM article_total_views
-    GROUP BY article_total_views.name
+    SELECT art_total_views.name, SUM(art_total_views.view) AS author_view
+    FROM art_total_views
+    GROUP BY art_total_views.name
     ORDER BY author_view DESC;
     """
     cur.execute(most_popular_authors)
@@ -31,7 +33,7 @@ def main():
     for (name, view) in cur.fetchall():
         print("    {} - {} views".format(name, view))
     print("********************************************************")
-    # 3 - select the daily error rate for all days, but only show the ones greater than 1%
+    # 3 - select the daily error rate, but only show the ones greater than 1%
     more_than_one_percent_errors = """
     SELECT *
     FROM daily_error_rate
@@ -47,6 +49,7 @@ def main():
     # Close database
     cur.close()
     conn.close()
+
 
 if __name__ == "__main__":
     main()
